@@ -3,7 +3,6 @@ import requests
 
 app = Flask(__name__)
 
-# ⚠️ PAS DIT AAN NAAR JOUW GITHUB
 BASE_URL = "https://my-json-server.typicode.com/TiemenBeyers/DTM"
 
 
@@ -15,34 +14,113 @@ def get_races():
     return requests.get(f"{BASE_URL}/races").json()
 
 
+# 🏎️ LOGO'S (online links)
+LOGOS = {
+    "Audi": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg",
+    "BMW": "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg",
+    "Mercedes-AMG": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
+    "Ferrari": "https://upload.wikimedia.org/wikipedia/en/d/d2/Ferrari-Logo.svg",
+    "Lamborghini": "https://upload.wikimedia.org/wikipedia/en/9/9a/Lamborghini_Logo.svg",
+    "Porsche": "https://upload.wikimedia.org/wikipedia/en/5/5f/Porsche_logo.svg"
+}
+
+
+# 🎨 STYLE + BACKGROUND
+STYLE = """
+<style>
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: url('https://images.unsplash.com/photo-1549921296-3a6b2a5e7e0d') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.75);
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+h1 {
+    color: #ff2e2e;
+    padding-top: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card {
+    background: rgba(34,34,34,0.9);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px;
+    width: 220px;
+    box-shadow: 0 0 20px rgba(255,0,0,0.4);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255,0,0,0.8);
+}
+
+img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #00ffcc;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 15px;
+    background: #ff2e2e;
+    color: white;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: #ff5555;
+}
+
+.small {
+    color: #ccc;
+    font-size: 14px;
+}
+</style>
+"""
+
+
 @app.route("/")
 def home():
-    return """
+    return f"""
     <html>
     <head>
         <title>DTM App</title>
-        <style>
-            body {
-                background:#111;
-                color:white;
-                text-align:center;
-                font-family:Arial;
-            }
-            a {
-                color:#00ffcc;
-                display:block;
-                margin:10px;
-                font-size:20px;
-            }
-            h1 {
-                color:#ff4444;
-            }
-        </style>
+        {STYLE}
     </head>
     <body>
-        <h1>DTM Web App</h1>
-        <a href="/teams">Bekijk Teams</a>
-        <a href="/races">Bekijk Races</a>
+        <div class="overlay">
+            <h1>🏁 DTM Web App</h1>
+
+            <a class="button" href="/teams">Bekijk Teams</a>
+            <a class="button" href="/races">Bekijk Races</a>
+        </div>
     </body>
     </html>
     """
@@ -52,17 +130,36 @@ def home():
 def teams():
     teams = get_teams()
 
-    html = """
+    html = f"""
     <html>
-    <head><title>Teams</title></head>
-    <body style="background:#111;color:white;text-align:center;">
-    <h1>Teams</h1>
+    <head>
+        <title>Teams</title>
+        {STYLE}
+    </head>
+    <body>
+    <div class="overlay">
+    <h1>🏎️ Teams</h1>
+    <div class="container">
     """
 
     for t in teams:
-        html += f'<p><a href="/teams/{t["id"]}">{t["name"]} ({t["manufacturer"]})</a></p>'
+        logo = LOGOS.get(t["manufacturer"], "")
+        html += f"""
+        <div class="card">
+            <img src="{logo}">
+            <h3>{t["name"]}</h3>
+            <p class="small">{t["manufacturer"]}</p>
+            <a href="/teams/{t["id"]}">Details →</a>
+        </div>
+        """
 
-    html += '<br><a href="/">Home</a></body></html>'
+    html += """
+    </div>
+    <a class="button" href="/">Home</a>
+    </div>
+    </body>
+    </html>
+    """
     return html
 
 
@@ -70,15 +167,26 @@ def teams():
 def team_detail(id):
     teams = get_teams()
     team = next((t for t in teams if t["id"] == id), None)
+    logo = LOGOS.get(team["manufacturer"], "")
 
     return f"""
     <html>
-    <body style="background:#111;color:white;text-align:center;">
-    <h1>{team['name']}</h1>
-    <p><b>Manufacturer:</b> {team['manufacturer']}</p>
-    <p><b>Country:</b> {team['country']}</p>
+    <head>
+        <title>{team['name']}</title>
+        {STYLE}
+    </head>
+    <body>
+    <div class="overlay">
+        <h1>{team['name']}</h1>
 
-    <br><a href="/teams">Terug</a>
+        <div class="card" style="margin:auto;">
+            <img src="{logo}">
+            <p><b>Manufacturer:</b> {team['manufacturer']}</p>
+            <p><b>Country:</b> {team['country']}</p>
+        </div>
+
+        <a class="button" href="/teams">Terug</a>
+    </div>
     </body>
     </html>
     """
@@ -88,16 +196,34 @@ def team_detail(id):
 def races():
     races = get_races()
 
-    html = """
+    html = f"""
     <html>
-    <body style="background:#111;color:white;text-align:center;">
-    <h1>Races</h1>
+    <head>
+        <title>Races</title>
+        {STYLE}
+    </head>
+    <body>
+    <div class="overlay">
+    <h1>🏁 Races</h1>
+    <div class="container">
     """
 
     for r in races:
-        html += f"<p>{r['event']} - {r['circuit']} ({r['country']})</p>"
+        html += f"""
+        <div class="card">
+            <h3>{r['event']}</h3>
+            <p class="small">{r['circuit']}</p>
+            <p class="small">{r['country']}</p>
+        </div>
+        """
 
-    html += '<br><a href="/">Home</a></body></html>'
+    html += """
+    </div>
+    <a class="button" href="/">Home</a>
+    </div>
+    </body>
+    </html>
+    """
     return html
 
 
