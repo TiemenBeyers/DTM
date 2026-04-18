@@ -1,0 +1,24 @@
+{
+  "teams": [
+    { "id": 1, "name": "Abt Sportsline", "manufacturer": "Audi", "country": "Germany" },
+    { "id": 2, "name": "Manthey EMA", "manufacturer": "Porsche", "country": "Germany" },
+    { "id": 3, "name": "Winward Racing", "manufacturer": "Mercedes-AMG", "country": "Germany" },
+    { "id": 4, "name": "AF Corse", "manufacturer": "Ferrari", "country": "Italy" },
+    { "id": 5, "name": "SSR Performance", "manufacturer": "Lamborghini", "country": "Germany" },
+    { "id": 6, "name": "Grasser Racing Team", "manufacturer": "Lamborghini", "country": "Austria" },
+    { "id": 7, "name": "Project 1", "manufacturer": "BMW", "country": "Germany" },
+    { "id": 8, "name": "Schubert Motorsport", "manufacturer": "BMW", "country": "Germany" },
+    { "id": 9, "name": "Toksport WRT", "manufacturer": "Mercedes-AMG", "country": "Germany" },
+    { "id": 10, "name": "Comtoyou Racing", "manufacturer": "Audi", "country": "Belgium" }
+  ],
+  "races": [
+    { "round": 1, "event": "Oschersleben DTM", "circuit": "Motorsport Arena Oschersleben", "country": "Germany" },
+    { "round": 2, "event": "Lausitzring DTM", "circuit": "Lausitzring", "country": "Germany" },
+    { "round": 3, "event": "Zandvoort DTM", "circuit": "Circuit Zandvoort", "country": "Netherlands" },
+    { "round": 4, "event": "Norisring DTM", "circuit": "Norisring", "country": "Germany" },
+    { "round": 5, "event": "Nürburgring DTM", "circuit": "Nürburgring", "country": "Germany" },
+    { "round": 6, "event": "Sachsenring DTM", "circuit": "Sachsenring", "country": "Germany" },
+    { "round": 7, "event": "Red Bull Ring DTM", "circuit": "Red Bull Ring", "country": "Austria" },
+    { "round": 8, "event": "Hockenheim DTM", "circuit": "Hockenheimring", "country": "Germany" }
+  ]
+}
