@@ -16,12 +16,12 @@ def get_races():
 
 # 🏎️ LOGO'S (online links)
 LOGOS = {
-    "Audi": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg",
-    "BMW": "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg",
-    "Mercedes-AMG": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
-    "Ferrari": "https://upload.wikimedia.org/wikipedia/en/d/d2/Ferrari-Logo.svg",
-    "Lamborghini": "https://upload.wikimedia.org/wikipedia/en/9/9a/Lamborghini_Logo.svg",
-    "Porsche": "https://upload.wikimedia.org/wikipedia/en/5/5f/Porsche_logo.svg"
+    "Audi": "https://logo.clearbit.com/audi.com",
+    "BMW": "https://logo.clearbit.com/bmw.com",
+    "Mercedes-AMG": "https://logo.clearbit.com/mercedes-benz.com",
+    "Ferrari": "https://logo.clearbit.com/ferrari.com",
+    "Lamborghini": "https://logo.clearbit.com/lamborghini.com",
+    "Porsche": "https://logo.clearbit.com/porsche.com"
 }
 
 
